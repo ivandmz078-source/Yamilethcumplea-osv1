@@ -235,8 +235,8 @@ h2 {
 .char-item p { font-size: 16px; font-weight: 300; color: var(--ink-soft); max-width: 240px; }
 
 /* ---------- Componente personaje ----------
-   Si la imagen carga, se muestra la imagen.
-   Si no, se muestra un emoji con el nombre (nunca queda roto). */
+   Si hay imagen en img/, se muestra la imagen.
+   Si no, se muestra una ilustración SVG (nunca queda roto). */
 .char {
   position: relative;
   display: grid;
@@ -254,15 +254,17 @@ h2 {
 }
 .char .ph {
   display: none;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   text-align: center;
   color: var(--ink);
 }
-.char .ph b {
-  font-weight: 400;
-  line-height: 1;
+.char .ph svg {
+  display: block;
+  width: 62%;
+  height: auto;
   animation: bob 3.4s ease-in-out infinite;
 }
 .char .ph small {
@@ -274,19 +276,16 @@ h2 {
 .char.missing .ph { display: flex; }
 
 .char-xl { width: min(440px, 80vw); aspect-ratio: 1; }
-.char-xl .ph b { font-size: clamp(110px, 20vw, 190px); }
 .char-xl .ph small { font-size: 18px; }
 .char-lg { width: 200px; aspect-ratio: 1; }
-.char-lg .ph b { font-size: 84px; }
 .char-bd { width: 300px; aspect-ratio: 1; }
-.char-bd .ph b { font-size: 120px; }
 .char-bd .ph small { font-size: 16px; }
 .char-md { width: 96px; aspect-ratio: 1; }
-.char-md .ph b { font-size: 46px; }
 .char-md .ph small { display: none; }
+.char-md .ph svg { width: 66%; }
 .char-sm { width: 130px; aspect-ratio: 1; }
-.char-sm .ph b { font-size: 58px; }
 .char-sm .ph small { display: none; }
+.char-sm .ph svg { width: 66%; }
 
 /* ---------- Pie ---------- */
 .footer { padding: 60px 0 72px; text-align: center; }
