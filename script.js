@@ -64,27 +64,155 @@
 
   const TULIP_COLORS = ['#FF8FB1', '#F0574F', '#FFC93C', '#B79CFF', '#FF9F5A', '#FF6F91', '#F7A6C8'];
 
+  /* ============ ILUSTRACIONES SVG (respaldo si no hay imagen) ============
+     Dibujos propios, uno por personaje, basados en un objeto que lo identifica. */
+  const S = 'stroke="#2B2A4C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"';
+  const icon = (inner) => `<svg viewBox="0 0 100 100" aria-hidden="true">${inner}</svg>`;
+
+  const ICONS = {
+    // Casita de Snoopy
+    'snoopy': icon(`
+      <rect x="22" y="46" width="56" height="38" rx="3" fill="#fff" ${S}/>
+      <polygon points="14,48 50,16 86,48" fill="#F0574F" ${S}/>
+      <path d="M41 84 V68 a9 9 0 0 1 18 0 V84Z" fill="#2B2A4C"/>
+      <path d="M74 88 H94 L91 79 H77Z" fill="#FFC93C" ${S}/>`),
+
+    // Pelota de béisbol
+    'charlie-brown': icon(`
+      <circle cx="50" cy="50" r="30" fill="#fff" ${S}/>
+      <path d="M33 26 Q46 50 33 74" fill="none" stroke="#F0574F" stroke-width="3" stroke-linecap="round"/>
+      <path d="M67 26 Q54 50 67 74" fill="none" stroke="#F0574F" stroke-width="3" stroke-linecap="round"/>
+      <path d="M36 36 l6 2 M39 46 l7 0 M39 56 l7 0 M36 66 l6 -2 M64 36 l-6 2 M61 46 l-7 0 M61 56 l-7 0 M64 66 l-6 -2" stroke="#F0574F" stroke-width="2" stroke-linecap="round"/>`),
+
+    // Pollito
+    'woodstock': icon(`
+      <path d="M46 34 Q42 22 48 20 M52 33 Q54 22 60 23" fill="none" ${S}/>
+      <circle cx="50" cy="56" r="26" fill="#FFD84D" ${S}/>
+      <polygon points="24,56 37,51 37,61" fill="#FF9F5A" ${S}/>
+      <circle cx="43" cy="50" r="3.2" fill="#2B2A4C"/>
+      <ellipse cx="62" cy="60" rx="11" ry="7" transform="rotate(-20 62 60)" fill="#FFC21A" ${S}/>
+      <path d="M44 82 V90 M56 82 V90" ${S} fill="none"/>`),
+
+    // Balón de fútbol americano
+    'lucy': icon(`
+      <g transform="rotate(-28 50 50)">
+        <ellipse cx="50" cy="50" rx="34" ry="21" fill="#B5651D" ${S}/>
+        <path d="M34 50 H66" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M42 45 V55 M50 45 V55 M58 45 V55" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M22 44 Q20 50 22 56 M78 44 Q80 50 78 56" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>`),
+
+    // Cobija
+    'linus': icon(`
+      <path d="M18 28 Q50 18 82 28 V72 Q50 82 18 72Z" fill="#7CC8EE" ${S}/>
+      <path d="M18 50 Q50 58 82 50 M50 22 V78" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/>
+      <path d="M50 46 C42 40 38 36 38 32 C38 29 40 27 43 27 C46 27 49 29 50 32 C51 29 54 27 57 27 C60 27 62 29 62 32 C62 36 58 40 50 46Z" fill="#FF8FB1" transform="translate(0 12) scale(1)"/>`),
+
+    // Moño
+    'sally': icon(`
+      <path d="M50 50 L16 30 Q8 50 16 70Z" fill="#FF8FB1" ${S}/>
+      <path d="M50 50 L84 30 Q92 50 84 70Z" fill="#FF8FB1" ${S}/>
+      <path d="M46 56 L36 84 L46 78 L50 88 L52 58Z" fill="#F7A6C8" ${S}/>
+      <path d="M54 56 L64 84 L54 78 L50 88 L48 58Z" fill="#F7A6C8" ${S}/>
+      <circle cx="50" cy="50" r="8" fill="#F0574F" ${S}/>`),
+
+    // Teclado de piano
+    'schroeder': icon(`
+      <rect x="14" y="32" width="72" height="42" rx="4" fill="#fff" ${S}/>
+      <path d="M26 74 V32 M38 74 V32 M50 74 V32 M62 74 V32 M74 74 V32" stroke="#2B2A4C" stroke-width="1.6"/>
+      <rect x="22" y="32" width="8" height="26" rx="1.5" fill="#2B2A4C"/>
+      <rect x="34" y="32" width="8" height="26" rx="1.5" fill="#2B2A4C"/>
+      <rect x="58" y="32" width="8" height="26" rx="1.5" fill="#2B2A4C"/>
+      <rect x="70" y="32" width="8" height="26" rx="1.5" fill="#2B2A4C"/>
+      <path d="M72 22 V10 L82 8 V20" fill="none" ${S}/>
+      <circle cx="69" cy="22" r="3.5" fill="#2B2A4C"/><circle cx="79" cy="20" r="3.5" fill="#2B2A4C"/>`),
+
+    // Medalla
+    'peppermint-patty': icon(`
+      <polygon points="30,12 50,46 40,50 22,16" fill="#F0574F" ${S}/>
+      <polygon points="70,12 50,46 60,50 78,16" fill="#7CC8EE" ${S}/>
+      <circle cx="50" cy="62" r="24" fill="#FFC93C" ${S}/>
+      <circle cx="50" cy="62" r="16" fill="none" stroke="#B57A00" stroke-width="2"/>
+      <path d="M50 51 L54 58.5 L62 59.5 L56 65 L57.5 73 L50 69 L42.5 73 L44 65 L38 59.5 L46 58.5Z" fill="#fff" ${S}/>`),
+
+    // Lentes
+    'marcie': icon(`
+      <circle cx="31" cy="52" r="17" fill="#fff" fill-opacity=".65" ${S} stroke-width="3.5"/>
+      <circle cx="69" cy="52" r="17" fill="#fff" fill-opacity=".65" ${S} stroke-width="3.5"/>
+      <path d="M48 50 Q50 46 52 50" fill="none" ${S} stroke-width="3.5"/>
+      <path d="M14 48 L6 42 M86 48 L94 42" ${S} stroke-width="3.5" fill="none"/>
+      <path d="M22 44 Q26 40 31 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`),
+
+    // Nubecita de polvo
+    'pig-pen': icon(`
+      <circle cx="34" cy="58" r="17" fill="#E4D9C6"/>
+      <circle cx="54" cy="46" r="20" fill="#E4D9C6"/>
+      <circle cx="70" cy="60" r="15" fill="#E4D9C6"/>
+      <circle cx="50" cy="64" r="17" fill="#E4D9C6"/>
+      <circle cx="40" cy="52" r="2.5" fill="#B8A88C"/><circle cx="60" cy="44" r="2.5" fill="#B8A88C"/>
+      <circle cx="66" cy="62" r="2.5" fill="#B8A88C"/><circle cx="48" cy="66" r="2.5" fill="#B8A88C"/>
+      <circle cx="18" cy="34" r="3" fill="#B8A88C"/><circle cx="84" cy="38" r="3" fill="#B8A88C"/>
+      <circle cx="80" cy="80" r="2.5" fill="#B8A88C"/><circle cx="22" cy="80" r="2.5" fill="#B8A88C"/>`),
+
+    // Mochila
+    'franklin': icon(`
+      <path d="M38 30 Q38 16 50 16 Q62 16 62 30" fill="none" ${S} stroke-width="4"/>
+      <rect x="26" y="28" width="48" height="58" rx="16" fill="#4FAF83" ${S}/>
+      <rect x="35" y="56" width="30" height="22" rx="7" fill="#5CC195" ${S}/>
+      <path d="M35 46 H65" stroke="#2B2A4C" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="50" cy="46" r="2.6" fill="#FFC93C" ${S} stroke-width="1.5"/>`),
+
+    // Bicicleta
+    'rerun': icon(`
+      <circle cx="26" cy="64" r="17" fill="none" ${S} stroke-width="3.5"/>
+      <circle cx="74" cy="64" r="17" fill="none" ${S} stroke-width="3.5"/>
+      <path d="M26 64 L44 64 L58 40 L74 64 M44 64 L38 42 M58 40 L52 64" fill="none" stroke="#F0574F" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M32 42 H46" ${S} stroke-width="4" fill="none"/>
+      <path d="M58 40 L64 30 H72" ${S} stroke-width="4" fill="none"/>`),
+
+    // Cactus
+    'spike': icon(`
+      <ellipse cx="50" cy="86" rx="34" ry="7" fill="#F2D3A2"/>
+      <path d="M50 82 V30" stroke="#2B2A4C" stroke-width="21" stroke-linecap="round"/>
+      <path d="M50 58 H33 V42" stroke="#2B2A4C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M50 50 H67 V34" stroke="#2B2A4C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M50 82 V30" stroke="#4FAF83" stroke-width="16" stroke-linecap="round"/>
+      <path d="M50 58 H33 V42" stroke="#4FAF83" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M50 50 H67 V34" stroke="#4FAF83" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M50 44 V70" stroke="#5CC195" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="50" cy="20" r="6" fill="#FF8FB1" ${S} stroke-width="2"/>`),
+
+    // Pastel de cumpleaños
+    'snoopy-cumple': icon(`
+      <rect x="20" y="54" width="60" height="30" rx="5" fill="#FFE3EC" ${S}/>
+      <path d="M20 62 Q28 72 36 62 Q44 72 52 62 Q60 72 68 62 Q76 72 80 62 V56 Q80 54 78 54 H22 Q20 54 20 56Z" fill="#FF8FB1" ${S}/>
+      <rect x="35" y="38" width="6" height="16" rx="2" fill="#7CC8EE" ${S}/>
+      <rect x="47" y="38" width="6" height="16" rx="2" fill="#FFC93C" ${S}/>
+      <rect x="59" y="38" width="6" height="16" rx="2" fill="#B79CFF" ${S}/>
+      <path d="M38 24 Q35 30 38 34 Q41 30 38 24Z M50 24 Q47 30 50 34 Q53 30 50 24Z M62 24 Q59 30 62 34 Q65 30 62 24Z" fill="#FF9F5A"/>
+      <path d="M14 86 H86" ${S} fill="none"/>`)
+  };
+
   /* ============ PERSONAJES ============
-     file  = nombre del archivo SIN extensión dentro de img/
-             (ej. img/snoopy.png, img/snoopy.webp, img/snoopy.jpg...)
-     url   = (opcional) link directo a una imagen; se prueba primero
-     emoji = lo que se muestra si no hay imagen
-  */
+     file = nombre del archivo SIN extensión dentro de img/
+            (ej. img/snoopy.png, img/snoopy.webp, img/snoopy.jpg...)
+     url  = (opcional) link directo a una imagen; se prueba primero
+     Si no hay imagen, se usa la ilustración de ICONS con el mismo nombre. */
   const BGS = ['#FFF1BF', '#DDF1FB', '#FFE3EC', '#D5F2E3', '#E6DEFF', '#FFE5D0'];
   const CHARS = [
-    { name: 'Snoopy',           file: 'snoopy',           emoji: '🐶', url: '', text: 'El beagle más soñador. Baila feliz todos los días y contagia su alegría.' },
-    { name: 'Charlie Brown',    file: 'charlie-brown',    emoji: '🧒', url: '', text: 'A veces nada le sale, pero nunca deja de intentarlo. Ese es el mejor corazón.' },
-    { name: 'Woodstock',        file: 'woodstock',        emoji: '🐤', url: '', text: 'Pequeño, leal y siempre al lado de su mejor amigo.' },
-    { name: 'Lucy',             file: 'lucy',             emoji: '🥺', url: '', text: 'Segura y con mucho carácter. Se admira a quien sabe lo que quiere.' },
-    { name: 'Linus',            file: 'linus',            emoji: '🧸', url: '', text: 'Su manta lo hace sentir a salvo. Todos tenemos algo que nos da calma.' },
-    { name: 'Sally',            file: 'sally',            emoji: '🎀', url: '', text: 'Soñadora y risueña, siempre con el corazón por delante.' },
-    { name: 'Schroeder',        file: 'schroeder',        emoji: '🎹', url: '', text: 'Vive por su piano. Qué bonito es tener algo que te apasione.' },
-    { name: 'Peppermint Patty', file: 'peppermint-patty', emoji: '🏅', url: '', text: 'Alegre, deportista y de gran corazón. Una amiga que siempre suma.' },
-    { name: 'Marcie',           file: 'marcie',           emoji: '👓', url: '', text: 'Lista, leal y cariñosa. La amiga que todo lo entiende.' },
-    { name: 'Pig-Pen',          file: 'pig-pen',          emoji: '💨', url: '', text: 'Va feliz por la vida con su nubecita de polvo. Ser uno mismo es lo mejor.' },
-    { name: 'Franklin',         file: 'franklin',         emoji: '🎒', url: '', text: 'Amable, tranquilo y buen amigo. La calma también es una forma de querer.' },
-    { name: 'Rerun',            file: 'rerun',            emoji: '🚲', url: '', text: 'El pequeño observador. Se fija en todos los detalles bonitos.' },
-    { name: 'Spike',            file: 'spike',            emoji: '🌵', url: '', text: 'Desde el desierto, el hermano de Snoopy también te manda saludos.' }
+    { name: 'Snoopy',           file: 'snoopy',           url: '', text: 'El beagle más soñador. Baila feliz todos los días y contagia su alegría.' },
+    { name: 'Charlie Brown',    file: 'charlie-brown',    url: '', text: 'A veces nada le sale, pero nunca deja de intentarlo. Ese es el mejor corazón.' },
+    { name: 'Woodstock',        file: 'woodstock',        url: '', text: 'Pequeño, leal y siempre al lado de su mejor amigo.' },
+    { name: 'Lucy',             file: 'lucy',             url: '', text: 'Segura y con mucho carácter. Se admira a quien sabe lo que quiere.' },
+    { name: 'Linus',            file: 'linus',            url: '', text: 'Su manta lo hace sentir a salvo. Todos tenemos algo que nos da calma.' },
+    { name: 'Sally',            file: 'sally',            url: '', text: 'Soñadora y risueña, siempre con el corazón por delante.' },
+    { name: 'Schroeder',        file: 'schroeder',        url: '', text: 'Vive por su piano. Qué bonito es tener algo que te apasione.' },
+    { name: 'Peppermint Patty', file: 'peppermint-patty', url: '', text: 'Alegre, deportista y de gran corazón. Una amiga que siempre suma.' },
+    { name: 'Marcie',           file: 'marcie',           url: '', text: 'Lista, leal y cariñosa. La amiga que todo lo entiende.' },
+    { name: 'Pig-Pen',          file: 'pig-pen',          url: '', text: 'Va feliz por la vida con su nubecita de polvo. Ser uno mismo es lo mejor.' },
+    { name: 'Franklin',         file: 'franklin',         url: '', text: 'Amable, tranquilo y buen amigo. La calma también es una forma de querer.' },
+    { name: 'Rerun',            file: 'rerun',            url: '', text: 'El pequeño observador. Se fija en todos los detalles bonitos.' },
+    { name: 'Spike',            file: 'spike',            url: '', text: 'Desde el desierto, el hermano de Snoopy también te manda saludos.' }
   ];
   CHARS.forEach((c, i) => { c.bg = BGS[i % BGS.length]; });
   const byName = (n) => CHARS.find((c) => c.name === n);
@@ -162,9 +290,9 @@
   }
 
   /* ============ COMPONENTE PERSONAJE ============
-     Empieza mostrando el emoji. Intenta cargar la imagen con
-     distintas extensiones; si carga alguna, reemplaza al emoji.
-     Si ninguna existe, se queda el emoji (nunca se ve roto). */
+     Muestra primero la ilustración SVG. Intenta cargar la imagen
+     real desde img/ con distintas extensiones; si carga alguna,
+     reemplaza a la ilustración. Si no existe, se queda el dibujo. */
   function makeChar(c, size, override) {
     const bases = override ? [override, c.file] : [c.file];
     const urls = [];
@@ -175,9 +303,11 @@
     wrap.className = 'char char-' + size + ' missing';
     wrap.style.setProperty('--bg', c.bg);
 
+    const key = override || c.file;
+    const label = override ? '¡Feliz cumpleaños!' : c.name;
     const ph = document.createElement('span');
     ph.className = 'ph';
-    ph.innerHTML = '<b>' + c.emoji + '</b><small>' + c.name + '</small>';
+    ph.innerHTML = (ICONS[key] || ICONS[c.file] || '') + '<small>' + label + '</small>';
 
     const img = new Image();
     img.alt = c.name;
